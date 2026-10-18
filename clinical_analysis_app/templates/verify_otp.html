@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Verify OTP | MedOrganize AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="auth-card">
+        <h1>Verify OTP</h1>
+        <p>Enter the 6-digit code sent to your email. It expires in 5 minutes.</p>
+
+        {% for category, message in get_flashed_messages(with_categories=true) %}
+            <p class="message {{ category }}">{{ message }}</p>
+        {% endfor %}
+
+        <form method="POST">
+            <label for="otp">6-digit OTP</label>
+            <input id="otp" type="text" name="otp"
+                   inputmode="numeric" pattern="[0-9]{6}"
+                   maxlength="6" autocomplete="one-time-code" required>
+            <button type="submit">Verify OTP</button>
+        </form>
+
+        <p><a href="{{ url_for('forgot_password') }}">Request a new OTP</a></p>
+    </main>
+</body>
+</html>

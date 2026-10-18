@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | MedOrganize AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='motion.css') }}">
+</head>
+
+<body>
+    <main class="auth-page">
+
+        <!-- LEFT PURPLE PANEL -->
+        <section class="auth-intro">
+            <h1 class="intro-brand">MedOrganize AI</h1>
+
+            <h2>Welcome Back!</h2>
+
+            <p class="intro-description">
+                Sign in to access your clinical transcription organizer
+                and continue managing your workspace.
+            </p>
+
+            <ul class="intro-features">
+                <li>✓ Access your personal workspace</li>
+                <li>✓ Organize clinical transcription records</li>
+                <li>✓ Manage your work in one place</li>
+            </ul>
+        </section>
+
+        <!-- RIGHT LOGIN CARD -->
+        <section class="auth-form-panel">
+            <div class="auth-form">
+
+                <a href="{{ url_for('index') }}" class="back-home">
+                    ← Back to Home
+                </a>
+
+                <h1 class="auth-title">Login</h1>
+
+                <p class="auth-subtitle">
+                    Enter your account details to continue.
+                </p>
+
+                <!-- FLASH MESSAGES FROM FLASK -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% for category, message in messages %}
+                        <p class="field-error" role="alert">
+                            {{ message }}
+                        </p>
+                    {% endfor %}
+                {% endwith %}
+
+                <!-- NORMAL FLASK POST FORM -->
+                <form id="loginForm"
+                      method="POST"
+                      action="{{ url_for('login_page') }}">
+
+                    <div class="login-field">
+                        <label for="email">Email Address</label>
+
+                        <input
+                            class="form-field"
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required>
+
+                        <small class="field-error"
+                               data-error-for="email"></small>
+                    </div>
+
+                    <div class="login-field">
+                        <label for="password">Password</label>
+
+                        <div class="password-wrap">
+                            <input
+                                class="form-field"
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required>
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-password-toggle="password">
+                                Show
+                            </button>
+                        </div>
+
+                        <small class="field-error"
+                               data-error-for="password"></small>
+                    </div>
+                    <div style="text-align: right; margin: 8px 0 18px;">
+                       <a href="{{ url_for('forgot_password') }}"
+                           style="color: #7c3aed; font-size: 14px;">
+                            Forgot Password?
+                        </a>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn-primary-custom auth-submit"
+                        id="loginButton">
+                        Login
+                    </button>
+
+                </form>
+
+                <div class="login-divider">
+                    <span></span>
+                    <p>OR</p>
+                    <span></span>
+                </div>
+
+                <p class="auth-footer">
+                    Don't have an account?
+                    <a href="{{ url_for('register_page') }}">
+                        Create Account
+                    </a>
+                </p>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- KEEP THIS IF script.js HANDLES PASSWORD VISIBILITY -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    
+    <script src="{{ url_for('static', filename='motion.js') }}" defer></script>
+    <script type="module" src="{{ url_for('static', filename='three-effects.js') }}"></script>
+</body>
+</html>

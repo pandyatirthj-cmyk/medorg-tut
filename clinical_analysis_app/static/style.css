@@ -1,0 +1,459 @@
+/* =========================================
+   MEDORGANIZE AI - SHARED STYLES
+   ========================================= */
+
+:root {
+    --primary: #68459d;
+    --primary-dark: #543783;
+    --primary-light: #eee7fb;
+    --page-bg: #f8f7ff;
+    --text-main: #24213a;
+    --text-muted: #777187;
+    --border-color: #e8e1f2;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--page-bg);
+    color: var(--text-main);
+}
+
+button, input, textarea, select {
+    font: inherit;
+}
+
+button, a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    text-decoration: none;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 3px solid #bba4e0;
+    outline-offset: 3px;
+}
+
+/* Shared buttons */
+
+.btn-primary-custom {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    background: var(--primary);
+    color: white;
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.btn-primary-custom:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* Form fields */
+
+.form-field {
+    display: block;
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 14px;
+    color: var(--text-main);
+    background: white;
+    border: 1px solid #dcd5e8;
+    border-radius: 9px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-field::placeholder {
+    color: #a19aad;
+}
+
+.form-field:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(104, 69, 157, 0.12);
+}
+
+.form-field[aria-invalid="true"] {
+    border-color: #dc2626;
+}
+
+.field-error {
+    display: block;
+    margin-top: 5px;
+    color: #dc2626;
+    font-size: 13px;
+}
+
+.field-hint {
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Authentication layout */
+
+.auth-page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: white;
+}
+
+/* Left purple panel */
+
+.auth-intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(30px, 6vw, 85px);
+    color: white;
+    background: linear-gradient(140deg, #7100ed, #8b24f5 55%, #a33df7);
+}
+
+.intro-brand {
+    margin: 0 0 55px;
+    font-size: clamp(25px, 3vw, 40px);
+    font-weight: 800;
+}
+
+.auth-intro h2 {
+    margin: 0 0 22px;
+    font-size: clamp(30px, 3vw, 46px);
+    font-weight: 800;
+}
+
+.intro-description {
+    max-width: 570px;
+    margin: 0 0 35px;
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+.intro-features {
+    display: grid;
+    gap: 22px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+/* Right login panel */
+
+.auth-form-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 28px;
+    background: #faf9fc;
+}
+
+.auth-form {
+    width: 100%;
+    max-width: 520px;
+    padding: 42px;
+    background: white;
+    border: 1px solid #f0ebf5;
+    border-radius: 18px;
+    box-shadow: 0 18px 45px rgba(48, 30, 73, 0.12);
+}
+
+.back-home {
+    display: inline-block;
+    margin-bottom: 36px;
+    color: #7626ef;
+    font-size: 15px;
+}
+
+.back-home:hover {
+    color: #543783;
+}
+
+.auth-title {
+    margin: 0 0 12px;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+}
+
+.auth-subtitle {
+    margin: 0 0 35px;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.login-field {
+    margin-bottom: 24px;
+}
+
+.login-field label {
+    display: block;
+    margin-bottom: 9px;
+    color: #514b60;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.password-wrap {
+    position: relative;
+}
+
+.password-wrap .form-field {
+    padding-right: 75px;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.auth-submit {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 5px;
+    border-radius: 9px;
+    background: linear-gradient(100deg, #7626ef, #922df7);
+    border: none;
+    color: white;
+}
+
+.auth-submit:hover {
+    background: linear-gradient(100deg, #6420d2, #7f20df);
+}
+
+.auth-submit:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.login-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 32px 0;
+}
+
+.login-divider span {
+    flex: 1;
+    height: 1px;
+    background: #e8e1f2;
+}
+
+.login-divider p {
+    margin: 0;
+    color: #777187;
+    font-size: 14px;
+}
+
+.auth-footer {
+    margin: 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.auth-footer a {
+    color: #7626ef;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* Landing page shared styles */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.site-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary);
+    font-weight: 800;
+}
+
+.site-logo-icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    color: white;
+    background: linear-gradient(135deg, #7651b5, #9a78d4);
+    border-radius: 12px;
+}
+
+.hero-gradient {
+    background:
+        radial-gradient(circle at 10% 15%, #e8ddff 0, transparent 34%),
+        radial-gradient(circle at 90% 85%, #dce8ff 0, transparent 35%),
+        #f8f7ff;
+}
+
+.dashboard-card {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid var(--border-color);
+    border-radius: 22px;
+    box-shadow: 0 25px 70px rgba(75, 52, 112, 0.13);
+}
+
+.feature-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 17px;
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(81, 57, 119, 0.1);
+}
+
+.site-footer {
+    background: #201a2d;
+    color: white;
+}
+
+.hidden-element {
+    display: none !important;
+}
+
+/* Responsive layout */
+
+@media (max-width: 900px) {
+    .auth-page {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .auth-intro {
+        padding: 30px;
+    }
+
+    .auth-form {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 700px) {
+    .auth-page {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-intro {
+        padding: 32px 25px;
+    }
+
+    .intro-brand {
+        margin-bottom: 25px;
+    }
+
+    .auth-intro h2 {
+        font-size: 30px;
+    }
+
+    .intro-description {
+        font-size: 15px;
+        margin-bottom: 22px;
+    }
+
+    .intro-features {
+        gap: 12px;
+        font-size: 14px;
+    }
+
+    .auth-form-panel {
+        padding: 28px 18px;
+    }
+
+    .auth-form {
+        padding: 28px 22px;
+    }
+
+    .auth-title {
+        font-size: 30px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+/* Shared Three.js background */
+#three-background-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Keep page content above the 3D background */
+body > *:not(#three-background-canvas) {
+    position: relative;
+    z-index: 1;
+}
+
+/* Keep the background subtle */
+body {
+    position: relative;
+}
+
+/* SweetAlert must appear above the page and Three.js background */
+.swal2-container {
+    z-index: 99999 !important;
+}
+
+.swal2-popup.medorganize-swal-popup {
+    z-index: 100000 !important;
+    border-radius: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.swal2-confirm {
+    min-width: 90px;
+}
+
+/* Ensure the Three.js canvas cannot block popup interactions */
+#three-background-canvas,
+#three-auth-background {
+    pointer-events: none !important;
+}

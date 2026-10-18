@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | MedOrganize AI</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+   
+
+    <style>
+        body {
+            background: #f8f7fc;
+            color: #29253b;
+        }
+
+        .sidebar {
+            background: linear-gradient(180deg, #6d28d9, #7c3aed);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            color: #ede9fe;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(255,255,255,0.18);
+            color: white;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #eeeaf7;
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: 0 4px 18px rgba(40,20,80,0.035);
+        }
+
+        .chart-card {
+            background: white;
+            border: 1px solid #eeeaf7;
+            border-radius: 16px;
+            padding: 22px;
+            min-width: 0;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 270px;
+            width: 100%;
+        }
+
+        .page-section {
+            scroll-margin-top: 24px;
+        }
+
+        @media (max-width: 767px) {
+            .sidebar {
+                width: 100%;
+                min-height: auto;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='motion.css') }}">
+</head>
+
+<body class="min-h-screen">
+
+<div class="min-h-screen md:flex">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar text-white md:w-64 md:min-h-screen
+                  md:fixed md:inset-y-0 md:left-0 z-20 p-5">
+
+        <a href="{{ url_for('home') }}"
+           class="flex items-center gap-3 mb-8">
+            <div class="bg-white/20 rounded-xl p-2 text-xl">✚</div>
+            <div>
+                <h1 class="text-xl font-bold">MedOrganize AI</h1>
+                <p class="text-xs text-purple-200">Clinical Intelligence</p>
+            </div>
+        </a>
+
+        <p class="text-xs uppercase tracking-widest
+                  text-purple-200 mb-3">
+            Workspace
+        </p>
+
+        <nav class="space-y-2">
+            <a href="#overview" class="nav-link active">
+                <span>▦</span> Dashboard
+            </a>
+            <a href="#clinical-reports" class="nav-link">
+                <span>▤</span> Clinical Reports
+            </a>
+            <a href="#prescriptions" class="nav-link">
+                <span>▧</span> Prescriptions
+            </a>
+            <a href="#error-analysis" class="nav-link">
+                <span>⚕</span> Error Detection
+            </a>
+            <a href="#activity" class="nav-link">
+                <span>◷</span> Recent Activity
+            </a>
+        </nav>
+
+        <div class="mt-10 border-t border-white/20 pt-5">
+            <p class="text-xs text-purple-200 mb-3">ACCOUNT</p>
+
+            <div class="flex items-center gap-3 mb-5 px-2">
+                <div class="avatar placeholder">
+                    <div class="bg-white text-violet-700 rounded-full w-10">
+                        <span class="font-bold">
+                            {{ session.get('user_name', 'U')[0]|upper }}
+                        </span>
+                    </div>
+                </div>
+                <div class="min-w-0">
+                    <p class="font-semibold truncate">
+                        {{ session.get('user_name', 'User') }}
+                    </p>
+                    <p class="text-xs text-purple-200 truncate">
+                        {{ session.get('user_email', '') }}
+                    </p>
+                </div>
+            </div>
+
+            <a href="{{ url_for('logout') }}"
+               class="nav-link"
+               onclick="return confirm('Are you sure you want to log out?');">
+                <span>↪</span> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 md:ml-64">
+
+        <!-- TOP HEADER -->
+        <header class="flex flex-wrap justify-between items-center
+                       gap-4 mb-8">
+            <div>
+                <p class="text-sm text-gray-500">Workspace / Dashboard</p>
+                <h2 class="text-3xl font-bold mt-1">
+                    Dashboard
+                </h2>
+                <p class="text-gray-500 mt-1">
+                    Welcome back, {{ session.get('user_name', 'User') }}!
+                    Here's your clinical workspace overview.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <span class="badge badge-outline badge-lg">
+                    ● Workspace active
+                </span>
+            </div>
+        </header>
+
+        <!-- OVERVIEW -->
+        <section id="overview" class="page-section mb-8">
+
+            <div class="flex flex-wrap justify-between items-center
+                        gap-3 mb-5">
+                <h3 class="text-xl font-bold">Overview</h3>
+                <p class="text-sm text-gray-500">
+                    Sample dashboard data
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4
+                        gap-5">
+
+                <div class="stat-card">
+                    <div class="flex justify-between items-start">
+                        <p class="text-sm text-gray-500">
+                            Clinical Reports
+                        </p>
+                        <span class="text-violet-700 bg-violet-100
+                                     rounded-xl p-3">▤</span>
+                    </div>
+                    <h3 id="reportsCount"
+                        class="text-3xl font-bold mt-4">128</h3>
+                    <p class="text-xs text-gray-500 mt-2">
+                        Reports processed
+                    </p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="flex justify-between items-start">
+                        <p class="text-sm text-gray-500">
+                            Prescriptions
+                        </p>
+                        <span class="text-blue-700 bg-blue-100
+                                     rounded-xl p-3">▧</span>
+                    </div>
+                    <h3 id="prescriptionsCount"
+                        class="text-3xl font-bold mt-4">96</h3>
+                    <p class="text-xs text-gray-500 mt-2">
+                        Prescriptions reviewed
+                    </p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="flex justify-between items-start">
+                        <p class="text-sm text-gray-500">
+                            Potential Issues
+                        </p>
+                        <span class="text-orange-700 bg-orange-100
+                                     rounded-xl p-3">⚠</span>
+                    </div>
+                    <h3 id="issuesCount"
+                        class="text-3xl font-bold mt-4">14</h3>
+                    <p class="text-xs text-gray-500 mt-2">
+                        Require professional review
+                    </p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="flex justify-between items-start">
+                        <p class="text-sm text-gray-500">
+                            Pending Reviews
+                        </p>
+                        <span class="text-rose-700 bg-rose-100
+                                     rounded-xl p-3">◷</span>
+                    </div>
+                    <h3 id="pendingCount"
+                        class="text-3xl font-bold mt-4">8</h3>
+                    <p class="text-xs text-gray-500 mt-2">
+                        Awaiting review
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        
+<!-- THREE.JS VISUALIZATION -->
+<section class="chart-card mb-8">
+    <h3 class="text-lg font-bold">3D Clinical Visualization</h3>
+    <p class="text-sm text-gray-500 mt-1 mb-4">
+        Interactive 3D visualization for the MedOrganize AI workspace.
+    </p>
+
+    <div id="three-visualization"
+         style="width: 100%; height: 300px; position: relative;">
+    </div>
+</section>
+
+        <!-- CHARTS -->
+        <section class="grid grid-cols-1 xl:grid-cols-2 gap-5 mb-8">
+
+            <div class="chart-card">
+                <h3 class="text-lg font-bold">
+                    Report Processing Trend
+                </h3>
+                <p class="text-sm text-gray-500 mt-1 mb-5">
+                    Monthly report and prescription counts
+                </p>
+                <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3 class="text-lg font-bold">
+                    Analysis Overview
+                </h3>
+                <p class="text-sm text-gray-500 mt-1 mb-5">
+                    Illustrative distribution of review outcomes
+                </p>
+                <div class="chart-container">
+                    <canvas id="analysisChart"></canvas>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- CLINICAL REPORTS -->
+        <section id="clinical-reports"
+                 class="page-section chart-card mb-8">
+            <div class="flex flex-wrap justify-between items-center gap-3">
+                <div>
+                    <h3 class="text-lg font-bold">Clinical Reports</h3>
+                    <p class="text-sm text-gray-500 mt-1">
+                        Prepare to upload and review clinical documents.
+                    </p>
+                </div>
+                <button class="btn bg-violet-600 hover:bg-violet-700
+                               text-white border-0"
+                        onclick="showComingSoon('Clinical Reports')">
+                    + Upload Report
+                </button>
+            </div>
+            <div class="bg-violet-50 text-violet-800 rounded-xl p-4 mt-5">
+                <p class="font-medium">Report workspace</p>
+                <p class="text-sm mt-1">
+                    The upload and report-processing module will be
+                    connected in the next development stage.
+                </p>
+            </div>
+        </section>
+
+        <!-- PRESCRIPTIONS -->
+        <section id="prescriptions"
+                 class="page-section chart-card mb-8">
+            <h3 class="text-lg font-bold">Prescription Management</h3>
+            <p class="text-sm text-gray-500 mt-1">
+                The prescription upload and review module is planned
+                for the next stage.
+            </p>
+            <button class="btn btn-outline border-violet-300
+                           text-violet-700 mt-4"
+                    onclick="showComingSoon('Prescriptions')">
+                Open Prescription Workspace
+            </button>
+        </section>
+
+        <!-- ERROR DETECTION -->
+        <section id="error-analysis"
+                 class="page-section chart-card mb-8">
+            <h3 class="text-lg font-bold">Potential Error Detection</h3>
+            <p class="text-sm text-gray-500 mt-1">
+                This module will help flag possible missing information,
+                inconsistent details, and potential prescription issues.
+            </p>
+            <div class="alert mt-4">
+                <span>ⓘ</span>
+                <span class="text-sm">
+                    Flags will require review by a qualified healthcare
+                    professional. They are not medical diagnoses.
+                </span>
+            </div>
+        </section>
+
+        <!-- RECENT ACTIVITY -->
+        <section id="activity"
+                 class="page-section chart-card mb-8">
+            <div class="flex flex-wrap justify-between items-center gap-3">
+                <h3 class="text-lg font-bold">Recent Activity</h3>
+                <span class="badge badge-ghost">Demo entries</span>
+            </div>
+
+            <div class="overflow-x-auto mt-4">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Activity</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Clinical report review</td>
+                            <td>Report</td>
+                            <td>
+                                <span class="badge badge-success">
+                                    Completed
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Prescription consistency check</td>
+                            <td>Prescription</td>
+                            <td>
+                                <span class="badge badge-warning">
+                                    Pending review
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Missing information check</td>
+                            <td>Error analysis</td>
+                            <td>
+                                <span class="badge badge-info">
+                                    Demo
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="text-center text-sm text-gray-500 py-5">
+            © 2026 MedOrganize AI · Clinical document organization
+        </footer>
+
+    </main>
+</div>
+
+<script>
+    // Demo data only. Replace with values from Flask/MySQL later.
+
+    const trendCanvas = document.getElementById("trendChart");
+
+    new Chart(trendCanvas, {
+        type: "line",
+        data: {
+            labels: ["May", "June", "July", "August",
+                     "September", "October"],
+            datasets: [
+                {
+                    label: "Reports",
+                    data: [12, 19, 15, 25, 22, 35],
+                    borderColor: "#7c3aed",
+                    backgroundColor: "rgba(124, 58, 237, 0.10)",
+                    fill: true,
+                    tension: 0.35,
+                    borderWidth: 2
+                },
+                {
+                    label: "Prescriptions",
+                    data: [8, 13, 11, 17, 20, 27],
+                    borderColor: "#0ea5e9",
+                    backgroundColor: "rgba(14, 165, 233, 0.08)",
+                    fill: true,
+                    tension: 0.35,
+                    borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { precision: 0 }
+                }
+            }
+        }
+    });
+
+    new Chart(document.getElementById("analysisChart"), {
+        type: "doughnut",
+        data: {
+            labels: [
+                "No issue flagged",
+                "Needs review",
+                "Incomplete information"
+            ],
+            datasets: [{
+                data: [72, 18, 10],
+                backgroundColor: [
+                    "#8b5cf6",
+                    "#f59e0b",
+                    "#38bdf8"
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: "68%",
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            }
+        }
+    });
+
+    function showComingSoon(section) {
+        alert(
+            section +
+            " module is not connected yet. " +
+            "We will implement it in the next stage."
+        );
+    }
+
+    // Highlight sidebar links when clicked.
+    document.querySelectorAll(".nav-link[href^='#']").forEach(link => {
+        link.addEventListener("click", function () {
+            document.querySelectorAll(".nav-link[href^='#']")
+                .forEach(item => item.classList.remove("active"));
+
+            this.classList.add("active");
+        });
+    });
+</script>
+    
+
+    <script src="{{ url_for('static', filename='motion.js') }}" defer></script>
+    <script type="module" src="{{ url_for('static', filename='three-effects.js') }}"></script>
+</body>
+</html>

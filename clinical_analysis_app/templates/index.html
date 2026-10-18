@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MedOrganize AI | Clinical Transcription Organizer</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8f7ff;
+            color: #24213a;
+            overflow-x: hidden;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(108, 79, 160, 0.12);
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: auto;
+            padding: 18px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 21px;
+            font-weight: 800;
+            color: #5b3b8c;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            background: linear-gradient(135deg, #7651b5, #9a78d4);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            box-shadow: 0 8px 20px rgba(103, 72, 157, 0.25);
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #514c67;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #7651b5;
+        }
+
+        .nav-button {
+            background: #68459d;
+            color: white !important;
+            padding: 11px 20px;
+            border-radius: 10px;
+        }
+
+        .nav-button:hover {
+            background: #543783;
+            transform: translateY(-2px);
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 100vh;
+            padding: 150px 25px 90px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(5px);
+            opacity: 0.5;
+            animation: float 7s infinite ease-in-out;
+        }
+
+        .blob-one {
+            width: 420px;
+            height: 420px;
+            background: #e6d9ff;
+            top: 90px;
+            left: -160px;
+        }
+
+        .blob-two {
+            width: 360px;
+            height: 360px;
+            background: #d8e7ff;
+            right: -100px;
+            bottom: 20px;
+            animation-delay: 2s;
+        }
+
+        .blob-three {
+            width: 180px;
+            height: 180px;
+            background: #f2d8ff;
+            right: 30%;
+            top: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #eee7fb;
+            color: #674596;
+            padding: 9px 15px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 22px;
+        }
+
+        .badge span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #7952b3;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(121, 82, 179, 0.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 9px rgba(121, 82, 179, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(121, 82, 179, 0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 5vw, 68px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 span {
+            color: #7651b5;
+        }
+
+        .hero-description {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #68637b;
+            max-width: 600px;
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .primary-btn {
+            background: #68459d;
+            color: white;
+            box-shadow: 0 12px 25px rgba(104, 69, 157, 0.25);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 30px rgba(104, 69, 157, 0.35);
+        }
+
+        .secondary-btn {
+            background: white;
+            color: #60418e;
+            border: 1px solid #ddd4ed;
+        }
+
+        .secondary-btn:hover {
+            border-color: #9b7bc9;
+            transform: translateY(-3px);
+        }
+
+        /* ================= DASHBOARD CARD ================= */
+
+        .dashboard-preview {
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(122, 92, 171, 0.15);
+            padding: 18px;
+            border-radius: 24px;
+            box-shadow: 0 30px 80px rgba(75, 52, 112, 0.15);
+            transform: perspective(1000px) rotateY(-4deg);
+            transition: 0.5s;
+        }
+
+        .dashboard-preview:hover {
+            transform: perspective(1000px) rotateY(0deg) translateY(-6px);
+        }
+
+        .dashboard-window {
+            background: #faf9ff;
+            border-radius: 17px;
+            overflow: hidden;
+        }
+
+        .window-top {
+            padding: 13px 17px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            border-bottom: 1px solid #ece8f5;
+        }
+
+        .dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #cfc7dc;
+        }
+
+        .window-title {
+            font-size: 12px;
+            color: #777187;
+            font-weight: 600;
+        }
+
+        .dashboard-content {
+            padding: 20px;
+        }
+
+        .mini-title {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .stat {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #eee9f6;
+        }
+
+        .stat-label {
+            color: #8b8598;
+            font-size: 10px;
+            margin-bottom: 7px;
+        }
+
+        .stat-number {
+            font-size: 21px;
+            font-weight: 800;
+            color: #563b7f;
+        }
+
+        .chart {
+            height: 150px;
+            background: white;
+            border-radius: 14px;
+            border: 1px solid #eee9f6;
+            padding: 18px;
+            display: flex;
+            align-items: end;
+            gap: 13px;
+        }
+
+        .bar {
+            flex: 1;
+            border-radius: 6px 6px 0 0;
+            background: linear-gradient(to top, #7550ae, #bba4e0);
+            animation: grow 1.5s ease forwards;
+            transform-origin: bottom;
+        }
+
+        .bar:nth-child(1) {
+            height: 45%;
+        }
+
+        .bar:nth-child(2) {
+            height: 70%;
+        }
+
+        .bar:nth-child(3) {
+            height: 55%;
+        }
+
+        .bar:nth-child(4) {
+            height: 88%;
+        }
+
+        .bar:nth-child(5) {
+            height: 65%;
+        }
+
+        .bar:nth-child(6) {
+            height: 95%;
+        }
+
+        @keyframes grow {
+            from {
+                transform: scaleY(0);
+            }
+
+            to {
+                transform: scaleY(1);
+            }
+        }
+
+        /* ================= FEATURES ================= */
+
+        .section {
+            padding: 100px 25px;
+        }
+
+        .section-container {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .section-heading {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 55px;
+        }
+
+        .section-heading .small-title {
+            color: #7651b5;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+        .section-heading h2 {
+            font-size: 40px;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .section-heading p {
+            color: #777187;
+            line-height: 1.7;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            border: 1px solid #ece7f4;
+            transition: 0.35s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: #c8b5e2;
+            box-shadow: 0 20px 45px rgba(81, 57, 119, 0.1);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            background: #eee7fa;
+            color: #654391;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 19px;
+            margin-bottom: 11px;
+        }
+
+        .feature-card p {
+            color: #777187;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        /* ================= WORKFLOW ================= */
+
+        .workflow-section {
+            background: #f0ebfa;
+        }
+
+        .workflow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .step {
+            background: white;
+            padding: 28px;
+            border-radius: 18px;
+            position: relative;
+        }
+
+        .step-number {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #6c499f;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .step h3 {
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            font-size: 13px;
+            line-height: 1.7;
+            color: #777187;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta {
+            max-width: 1000px;
+            margin: auto;
+            background: linear-gradient(135deg, #62408f, #8060b2);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 28px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            right: -70px;
+            top: -80px;
+        }
+
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .cta p {
+            color: #eee8fa;
+            line-height: 1.7;
+            margin-bottom: 28px;
+            position: relative;
+        }
+
+        .cta .btn {
+            background: white;
+            color: #61408e;
+            position: relative;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #201a2d;
+            color: white;
+            padding: 35px 25px;
+        }
+
+        .footer-container {
+            max-width: 1150px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-weight: 800;
+            font-size: 17px;
+        }
+
+        .footer-text {
+            color: #aaa2b8;
+            font-size: 13px;
+        }
+
+        /* ================= POPUP ================= */
+
+        .popup {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            background: white;
+            padding: 18px 20px;
+            border-radius: 14px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+            border-left: 4px solid #7651b5;
+            display: none;
+            z-index: 2000;
+            max-width: 300px;
+        }
+
+        .popup strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .popup p {
+            color: #777187;
+            font-size: 13px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            nav {
+                gap: 15px;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-preview {
+                max-width: 650px;
+                width: 100%;
+                margin: auto;
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .workflow {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                padding: 14px 18px;
+            }
+
+            nav a:not(.nav-button) {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 120px;
+            }
+
+            .hero h1 {
+                font-size: 43px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 75px 20px;
+            }
+
+            .section-heading h2 {
+                font-size: 31px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='motion.css') }}">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+        <div class="navbar">
+
+            <div class="logo">
+                <div class="logo-icon">✚</div>
+                <span>MedOrganize AI</span>
+            </div>
+         <nav>
+            <a href="#features">Features</a>
+            <a href="#workflow">Workflow</a>
+            <a href="#about">About</a>
+
+             <!-- Login button -->
+            <a href="{{ url_for('login_page') }}"
+             class="nav-button">Login</a>
+
+         </nav>
+
+        </div>
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="blob blob-one"></div>
+        <div class="blob blob-two"></div>
+        <div class="blob blob-three"></div>
+
+        <div class="hero-container">
+
+            <div class="hero-content">
+
+                <div class="badge">
+                    <span></span>
+                    AI-Powered Clinical Data Organization
+                </div>
+
+                <h1>
+                    Organize Medical
+                    <span>Transcription</span>
+                    Intelligently.
+                </h1>
+
+                <p class="hero-description">
+                    Transform unstructured clinical transcription into organized,
+                    searchable and meaningful information using modern AI,
+                    NLP and information extraction techniques.
+                </p>
+            
+               <div class="hero-buttons">
+
+                 <a href="{{ url_for('register_page') }}"
+                 class="btn primary-btn">
+                  Get Started →
+                </a>
+
+                 <a href="#features" class="btn secondary-btn">
+                    View Features
+                 </a>
+
+</div>
+
+            </div>
+
+
+            <!-- Dashboard Preview -->
+
+            <div class="dashboard-preview">
+
+                <div class="dashboard-window">
+
+                    <div class="window-top">
+
+                        <div class="dots">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+
+                        <div class="window-title">
+                            Clinical Intelligence Dashboard
+                        </div>
+
+                    </div>
+
+                    <div class="dashboard-content">
+
+                        <div class="mini-title">
+                            Transcription Overview
+                        </div>
+
+                        <div class="stats">
+
+                            <div class="stat">
+                                <div class="stat-label">
+                                    DOCUMENTS
+                                </div>
+
+                                <div class="stat-number">
+                                    1,248
+                                </div>
+                            </div>
+
+                            <div class="stat">
+                                <div class="stat-label">
+                                    PROCESSED
+                                </div>
+
+                                <div class="stat-number">
+                                    936
+                                </div>
+                            </div>
+
+                            <div class="stat">
+                                <div class="stat-label">
+                                    REVIEW
+                                </div>
+
+                                <div class="stat-number">
+                                    72
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="chart">
+
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FEATURES ================= -->
+
+    <section class="section" id="features">
+
+        <div class="section-container">
+
+            <div class="section-heading">
+
+                <div class="small-title">
+                    Platform Features
+                </div>
+
+                <h2>
+                    From Raw Notes to Organized Information
+                </h2>
+
+                <p>
+                    A structured workflow designed to process clinical
+                    transcription efficiently while keeping professional
+                    review at the center.
+                </p>
+
+            </div>
+
+
+            <div class="features">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        ↑
+                    </div>
+
+                    <h3>
+                        Document Processing
+                    </h3>
+
+                    <p>
+                        Upload and process unstructured clinical
+                        transcription documents through a centralized
+                        digital workflow.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        ✦
+                    </div>
+
+                    <h3>
+                        AI Summarization
+                    </h3>
+
+                    <p>
+                        Convert lengthy clinical notes into structured
+                        summaries using NLP and large language model
+                        techniques.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        #
+                    </div>
+
+                    <h3>
+                        Information Extraction
+                    </h3>
+
+                    <p>
+                        Identify important entities such as history,
+                        diagnosis, medications, laboratory information
+                        and clinical observations.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        ◉
+                    </div>
+
+                    <h3>
+                        Semantic Organization
+                    </h3>
+
+                    <p>
+                        Organize extracted information into meaningful
+                        categories to make clinical records easier
+                        to search and analyze.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        ✓
+                    </div>
+
+                    <h3>
+                        Consistency Flagging
+                    </h3>
+
+                    <p>
+                        Highlight possible inconsistencies, missing
+                        information or unusual entries for professional
+                        review.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        ▣
+                    </div>
+
+                    <h3>
+                        Analytics Dashboard
+                    </h3>
+
+                    <p>
+                        Visualize document processing, extracted
+                        information and workflow statistics through
+                        interactive dashboards.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= WORKFLOW ================= -->
+
+    <section class="section workflow-section" id="workflow">
+
+        <div class="section-container">
+
+            <div class="section-heading">
+
+                <div class="small-title">
+                    How It Works
+                </div>
+
+                <h2>
+                    Simple Four-Step Workflow
+                </h2>
+
+                <p>
+                    The platform follows a structured pipeline from
+                    document upload to organized information.
+                </p>
+
+            </div>
+
+
+            <div class="workflow">
+
+                <div class="step">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <h3>
+                        Upload
+                    </h3>
+
+                    <p>
+                        Upload scanned or digital medical transcription
+                        documents into the platform.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <h3>
+                        Process
+                    </h3>
+
+                    <p>
+                        Extract text and process the content using
+                        NLP and AI-based techniques.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <h3>
+                        Organize
+                    </h3>
+
+                    <p>
+                        Categorize important information into
+                        structured clinical sections.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        4
+                    </div>
+
+                    <h3>
+                        Review
+                    </h3>
+
+                    <p>
+                        Present extracted information and possible
+                        inconsistencies for professional review.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section class="section" id="about">
+
+        <div class="section-container">
+
+            <div class="section-heading">
+
+                <div class="small-title">
+                    About The Project
+                </div>
+
+                <h2>
+                    Built for Structured Clinical Information
+                </h2>
+
+                <p>
+                    MedOrganize AI focuses on organizing medical
+                    transcription rather than replacing professional
+                    clinical judgment. The system is designed to
+                    support information management, searchability,
+                    summarization and review.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="section" id="start">
+
+        <div class="cta">
+
+            <h2>
+                Start Organizing Clinical Records
+            </h2>
+
+            <p>
+                Explore a modern workflow for transforming
+                unstructured medical transcription into organized
+                digital information.
+            </p>
+
+            <a href="#platform" class="btn">
+              Launch Platform
+            </a>
+          
+
+        </div>
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-container">
+
+            <div class="footer-logo">
+                ✚ MedOrganize AI
+            </div>
+            
+
+            <div class="footer-text">
+                © 2026 MedOrganize AI. Academic Project.
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- ================= POPUP ================= -->
+
+    <div class="popup" id="popup">
+
+        <strong>
+            Platform Ready
+        </strong>
+
+        <p>
+            Your clinical transcription workspace can be
+            connected here.
+        </p>
+
+    </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        function showMessage() {
+
+            const popup = document.getElementById("popup");
+
+            popup.style.display = "block";
+
+            setTimeout(function () {
+
+                popup.style.display = "none";
+
+            }, 3500);
+
+        }
+
+
+    </script>
+    
+
+    <script src="{{ url_for('static', filename='motion.js') }}" defer></script>
+    <script type="module" src="{{ url_for('static', filename='three-effects.js') }}"></script>
+</body>
+</html>

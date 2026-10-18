@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | MedOrganize AI</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Existing JavaScript -->
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+
+    <!-- SweetAlert and page layering -->
+    <style>
+        /* Keep the page behind SweetAlert */
+        body.register-page {
+            position: relative;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Registration layout */
+        .register-layout {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+        }
+
+        /* SweetAlert always centered above all page elements */
+        body.swal2-shown > .swal2-container,
+        .swal2-container {
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 999999 !important;
+            display: grid !important;
+            place-items: center !important;
+            width: 100% !important;
+            height: 100% !important;
+            padding: 16px !important;
+            overflow-y: auto !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Popup design */
+        .swal2-popup.medorganize-popup {
+            width: min(420px, 100%) !important;
+            margin: auto !important;
+            padding: 28px !important;
+            border-radius: 20px !important;
+            background: #ffffff !important;
+            box-shadow: 0 20px 70px rgba(35, 20, 60, 0.25) !important;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .swal2-popup.medorganize-popup .swal2-title {
+            color: #302044;
+            font-size: 25px;
+        }
+
+        .swal2-popup.medorganize-popup .swal2-html-container {
+            color: #6b6475;
+            font-size: 15px;
+        }
+
+        .swal2-popup.medorganize-popup .swal2-confirm {
+            min-width: 100px;
+            padding: 11px 25px;
+            border-radius: 9px;
+            background: #7c3aed !important;
+        }
+
+        /* Ensure animation canvas never blocks the popup */
+        #three-background-canvas,
+        #three-auth-background {
+            pointer-events: none !important;
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='motion.css') }}">
+</head>
+
+<body class="register-page min-h-screen bg-base-200">
+
+    <main class="register-layout min-h-screen grid md:grid-cols-2">
+
+        <!-- LEFT SECTION -->
+        <section class="hidden md:flex flex-col justify-center p-12 text-white
+                        bg-gradient-to-br from-violet-700 to-purple-500">
+
+            <a href="{{ url_for('index') }}"
+               class="text-3xl font-bold mb-10">
+                MedOrganize AI
+            </a>
+
+            <h1 class="text-4xl font-bold leading-tight">
+                Organize Clinical Transcriptions Intelligently
+            </h1>
+
+            <p class="mt-5 text-lg text-purple-100">
+                Create your account to access your clinical transcription
+                organizer and manage your work in one place.
+            </p>
+
+            <div class="mt-10 space-y-4 text-purple-50">
+                <p>✓ Simple and organized workspace</p>
+                <p>✓ Secure account-based access</p>
+                <p>✓ Easy clinical record management</p>
+            </div>
+
+        </section>
+
+        <!-- REGISTRATION FORM -->
+        <section class="flex items-center justify-center p-6 sm:p-10">
+
+            <div class="card bg-base-100 shadow-xl w-full max-w-md">
+                <div class="card-body p-7 sm:p-9">
+
+                    <a href="{{ url_for('index') }}"
+                       class="text-sm link link-hover text-violet-600">
+                        ← Back to Home
+                    </a>
+
+                    <h2 class="text-3xl font-bold mt-4">
+                        Create Account
+                    </h2>
+
+                    <p class="text-base-content/60 mt-1">
+                        Register to get started with MedOrganize AI.
+                    </p>
+
+                    <!-- Registration errors are shown using SweetAlert -->
+
+                    <form id="registerForm"
+                          class="mt-5 space-y-4"
+                          method="POST"
+                          action="{{ url_for('register_page') }}"
+                          data-prevent-double-submit>
+
+                        <!-- FULL NAME -->
+                        <div>
+                            <label for="name" class="label">
+                                <span class="label-text font-medium">
+                                    Full Name
+                                </span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                class="input input-bordered w-full"
+                                placeholder="Enter your full name"
+                                minlength="2"
+                                maxlength="80"
+                                autocomplete="name"
+                                required>
+
+                            <p data-error-for="name"
+                               class="text-error text-sm mt-1"></p>
+                        </div>
+
+                        <!-- EMAIL -->
+                        <div>
+                            <label for="email" class="label">
+                                <span class="label-text font-medium">
+                                    Email Address
+                                </span>
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="input input-bordered w-full"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required>
+
+                            <p data-error-for="email"
+                               class="text-error text-sm mt-1"></p>
+                        </div>
+
+                        <!-- PASSWORD -->
+                        <div>
+                            <label for="password" class="label">
+                                <span class="label-text font-medium">
+                                    Password
+                                </span>
+                            </label>
+
+                            <div class="flex gap-2">
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    class="input input-bordered w-full"
+                                    placeholder="Create a strong password"
+                                    minlength="8"
+                                    maxlength="128"
+                                    pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,128}"
+                                    title="Use at least 8 characters, including uppercase, lowercase, and a number."
+                                    autocomplete="new-password"
+                                    required>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-ghost"
+                                    data-password-toggle="password"
+                                    aria-label="Show password"
+                                    title="Show password">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         width="22"
+                                         height="22"
+                                         viewBox="0 0 24 24"
+                                         fill="none"
+                                         stroke="currentColor"
+                                         stroke-width="2"
+                                         stroke-linecap="round"
+                                         stroke-linejoin="round">
+                                        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <p class="text-xs text-base-content/60 mt-2">
+                                At least 8 characters, including uppercase,
+                                lowercase, and a number.
+                            </p>
+
+                            <p data-error-for="password"
+                               class="text-error text-sm mt-1"></p>
+                        </div>
+
+                        <!-- CONFIRM PASSWORD -->
+                        <div>
+                            <label for="confirm_password" class="label">
+                                <span class="label-text font-medium">
+                                    Confirm Password
+                                </span>
+                            </label>
+
+                            <div class="flex gap-2">
+                                <input
+                                    type="password"
+                                    id="confirm_password"
+                                    name="confirm_password"
+                                    class="input input-bordered w-full"
+                                    placeholder="Enter password again"
+                                    maxlength="128"
+                                    autocomplete="new-password"
+                                    required>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-outline"
+                                    data-password-toggle="confirm_password"
+                                    aria-label="Show or hide confirmation password">
+                                    Show
+                                </button>
+                            </div>
+
+                            <p data-error-for="confirm_password"
+                               class="text-error text-sm mt-1"></p>
+                        </div>
+
+                        <!-- SUBMIT BUTTON -->
+                        <button
+                            type="submit"
+                            id="registerButton"
+                            class="btn w-full bg-violet-600 hover:bg-violet-700
+                                   text-white border-0 mt-3">
+                            Create Account
+                        </button>
+
+                        <p id="registerMessage"
+                           class="text-sm text-center"
+                           role="status"></p>
+
+                    </form>
+
+                    <div class="divider">OR</div>
+
+                    <p class="text-center text-sm">
+                        Already have an account?
+
+                        <a href="{{ url_for('login_page') }}"
+                           class="link link-primary font-semibold">
+                            Login
+                        </a>
+                    </p>
+
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Flask flash messages: read only once -->
+    <script id="flash-messages" type="application/json">
+        {{ get_flashed_messages(with_categories=true) | tojson }}
+    </script>
+
+    <!-- Registration validation and SweetAlert -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const registerForm = document.getElementById("registerForm");
+        const registerButton = document.getElementById("registerButton");
+
+        // Validate that passwords match
+        registerForm.addEventListener("submit", function (event) {
+
+            const password =
+                document.getElementById("password").value;
+
+            const confirmPassword =
+                document.getElementById("confirm_password").value;
+
+            const confirmInput =
+                document.getElementById("confirm_password");
+
+            if (password !== confirmPassword) {
+                event.preventDefault();
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Passwords Do Not Match",
+                    text: "Please enter the same password in both fields.",
+                    confirmButtonText: "Try Again",
+                    confirmButtonColor: "#7c3aed",
+                    heightAuto: false,
+                    customClass: {
+                        popup: "medorganize-popup"
+                    }
+                });
+
+                confirmInput.focus();
+                return;
+            }
+
+            registerButton.disabled = true;
+            registerButton.textContent = "Creating Account...";
+        });
+
+        // Display Flask messages in the center of the screen
+        const flashElement = document.getElementById("flash-messages");
+
+        if (flashElement && typeof Swal !== "undefined") {
+
+            let flashMessages = [];
+
+            try {
+                flashMessages = JSON.parse(
+                    flashElement.textContent || "[]"
+                );
+            } catch (error) {
+                console.error("Could not read flash messages:", error);
+            }
+
+            if (flashMessages.length > 0) {
+
+                const category = flashMessages[0][0];
+                const message = flashMessages[0][1];
+
+                Swal.fire({
+                    icon: category === "success" ? "success" : "error",
+                    title: category === "success"
+                        ? "Success!"
+                        : "Registration Error",
+                    text: message,
+                    confirmButtonText: "OK",
+                    confirmButtonColor: "#7c3aed",
+                    heightAuto: false,
+                    allowOutsideClick: true,
+                    customClass: {
+                        popup: "medorganize-popup"
+                    }
+                });
+            }
+        }
+
+    });
+    </script>
+
+    <!-- Optional Three.js background -->
+    <!--
+    
+    -->
+
+    <script src="{{ url_for('static', filename='motion.js') }}" defer></script>
+    <script type="module" src="{{ url_for('static', filename='three-effects.js') }}"></script>
+</body>
+</html>

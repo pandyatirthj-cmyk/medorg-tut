@@ -1,0 +1,602 @@
+[
+  {
+    "name": "rise-01",
+    "family": "rise",
+    "strength": 1
+  },
+  {
+    "name": "rise-02",
+    "family": "rise",
+    "strength": 2
+  },
+  {
+    "name": "rise-03",
+    "family": "rise",
+    "strength": 3
+  },
+  {
+    "name": "rise-04",
+    "family": "rise",
+    "strength": 4
+  },
+  {
+    "name": "rise-05",
+    "family": "rise",
+    "strength": 5
+  },
+  {
+    "name": "rise-06",
+    "family": "rise",
+    "strength": 6
+  },
+  {
+    "name": "rise-07",
+    "family": "rise",
+    "strength": 7
+  },
+  {
+    "name": "rise-08",
+    "family": "rise",
+    "strength": 8
+  },
+  {
+    "name": "rise-09",
+    "family": "rise",
+    "strength": 9
+  },
+  {
+    "name": "rise-10",
+    "family": "rise",
+    "strength": 10
+  },
+  {
+    "name": "drop-01",
+    "family": "drop",
+    "strength": 1
+  },
+  {
+    "name": "drop-02",
+    "family": "drop",
+    "strength": 2
+  },
+  {
+    "name": "drop-03",
+    "family": "drop",
+    "strength": 3
+  },
+  {
+    "name": "drop-04",
+    "family": "drop",
+    "strength": 4
+  },
+  {
+    "name": "drop-05",
+    "family": "drop",
+    "strength": 5
+  },
+  {
+    "name": "drop-06",
+    "family": "drop",
+    "strength": 6
+  },
+  {
+    "name": "drop-07",
+    "family": "drop",
+    "strength": 7
+  },
+  {
+    "name": "drop-08",
+    "family": "drop",
+    "strength": 8
+  },
+  {
+    "name": "drop-09",
+    "family": "drop",
+    "strength": 9
+  },
+  {
+    "name": "drop-10",
+    "family": "drop",
+    "strength": 10
+  },
+  {
+    "name": "left-01",
+    "family": "left",
+    "strength": 1
+  },
+  {
+    "name": "left-02",
+    "family": "left",
+    "strength": 2
+  },
+  {
+    "name": "left-03",
+    "family": "left",
+    "strength": 3
+  },
+  {
+    "name": "left-04",
+    "family": "left",
+    "strength": 4
+  },
+  {
+    "name": "left-05",
+    "family": "left",
+    "strength": 5
+  },
+  {
+    "name": "left-06",
+    "family": "left",
+    "strength": 6
+  },
+  {
+    "name": "left-07",
+    "family": "left",
+    "strength": 7
+  },
+  {
+    "name": "left-08",
+    "family": "left",
+    "strength": 8
+  },
+  {
+    "name": "left-09",
+    "family": "left",
+    "strength": 9
+  },
+  {
+    "name": "left-10",
+    "family": "left",
+    "strength": 10
+  },
+  {
+    "name": "right-01",
+    "family": "right",
+    "strength": 1
+  },
+  {
+    "name": "right-02",
+    "family": "right",
+    "strength": 2
+  },
+  {
+    "name": "right-03",
+    "family": "right",
+    "strength": 3
+  },
+  {
+    "name": "right-04",
+    "family": "right",
+    "strength": 4
+  },
+  {
+    "name": "right-05",
+    "family": "right",
+    "strength": 5
+  },
+  {
+    "name": "right-06",
+    "family": "right",
+    "strength": 6
+  },
+  {
+    "name": "right-07",
+    "family": "right",
+    "strength": 7
+  },
+  {
+    "name": "right-08",
+    "family": "right",
+    "strength": 8
+  },
+  {
+    "name": "right-09",
+    "family": "right",
+    "strength": 9
+  },
+  {
+    "name": "right-10",
+    "family": "right",
+    "strength": 10
+  },
+  {
+    "name": "zoom-01",
+    "family": "zoom",
+    "strength": 1
+  },
+  {
+    "name": "zoom-02",
+    "family": "zoom",
+    "strength": 2
+  },
+  {
+    "name": "zoom-03",
+    "family": "zoom",
+    "strength": 3
+  },
+  {
+    "name": "zoom-04",
+    "family": "zoom",
+    "strength": 4
+  },
+  {
+    "name": "zoom-05",
+    "family": "zoom",
+    "strength": 5
+  },
+  {
+    "name": "zoom-06",
+    "family": "zoom",
+    "strength": 6
+  },
+  {
+    "name": "zoom-07",
+    "family": "zoom",
+    "strength": 7
+  },
+  {
+    "name": "zoom-08",
+    "family": "zoom",
+    "strength": 8
+  },
+  {
+    "name": "zoom-09",
+    "family": "zoom",
+    "strength": 9
+  },
+  {
+    "name": "zoom-10",
+    "family": "zoom",
+    "strength": 10
+  },
+  {
+    "name": "shrink-01",
+    "family": "shrink",
+    "strength": 1
+  },
+  {
+    "name": "shrink-02",
+    "family": "shrink",
+    "strength": 2
+  },
+  {
+    "name": "shrink-03",
+    "family": "shrink",
+    "strength": 3
+  },
+  {
+    "name": "shrink-04",
+    "family": "shrink",
+    "strength": 4
+  },
+  {
+    "name": "shrink-05",
+    "family": "shrink",
+    "strength": 5
+  },
+  {
+    "name": "shrink-06",
+    "family": "shrink",
+    "strength": 6
+  },
+  {
+    "name": "shrink-07",
+    "family": "shrink",
+    "strength": 7
+  },
+  {
+    "name": "shrink-08",
+    "family": "shrink",
+    "strength": 8
+  },
+  {
+    "name": "shrink-09",
+    "family": "shrink",
+    "strength": 9
+  },
+  {
+    "name": "shrink-10",
+    "family": "shrink",
+    "strength": 10
+  },
+  {
+    "name": "spin-01",
+    "family": "spin",
+    "strength": 1
+  },
+  {
+    "name": "spin-02",
+    "family": "spin",
+    "strength": 2
+  },
+  {
+    "name": "spin-03",
+    "family": "spin",
+    "strength": 3
+  },
+  {
+    "name": "spin-04",
+    "family": "spin",
+    "strength": 4
+  },
+  {
+    "name": "spin-05",
+    "family": "spin",
+    "strength": 5
+  },
+  {
+    "name": "spin-06",
+    "family": "spin",
+    "strength": 6
+  },
+  {
+    "name": "spin-07",
+    "family": "spin",
+    "strength": 7
+  },
+  {
+    "name": "spin-08",
+    "family": "spin",
+    "strength": 8
+  },
+  {
+    "name": "spin-09",
+    "family": "spin",
+    "strength": 9
+  },
+  {
+    "name": "spin-10",
+    "family": "spin",
+    "strength": 10
+  },
+  {
+    "name": "flip-01",
+    "family": "flip",
+    "strength": 1
+  },
+  {
+    "name": "flip-02",
+    "family": "flip",
+    "strength": 2
+  },
+  {
+    "name": "flip-03",
+    "family": "flip",
+    "strength": 3
+  },
+  {
+    "name": "flip-04",
+    "family": "flip",
+    "strength": 4
+  },
+  {
+    "name": "flip-05",
+    "family": "flip",
+    "strength": 5
+  },
+  {
+    "name": "flip-06",
+    "family": "flip",
+    "strength": 6
+  },
+  {
+    "name": "flip-07",
+    "family": "flip",
+    "strength": 7
+  },
+  {
+    "name": "flip-08",
+    "family": "flip",
+    "strength": 8
+  },
+  {
+    "name": "flip-09",
+    "family": "flip",
+    "strength": 9
+  },
+  {
+    "name": "flip-10",
+    "family": "flip",
+    "strength": 10
+  },
+  {
+    "name": "swing-01",
+    "family": "swing",
+    "strength": 1
+  },
+  {
+    "name": "swing-02",
+    "family": "swing",
+    "strength": 2
+  },
+  {
+    "name": "swing-03",
+    "family": "swing",
+    "strength": 3
+  },
+  {
+    "name": "swing-04",
+    "family": "swing",
+    "strength": 4
+  },
+  {
+    "name": "swing-05",
+    "family": "swing",
+    "strength": 5
+  },
+  {
+    "name": "swing-06",
+    "family": "swing",
+    "strength": 6
+  },
+  {
+    "name": "swing-07",
+    "family": "swing",
+    "strength": 7
+  },
+  {
+    "name": "swing-08",
+    "family": "swing",
+    "strength": 8
+  },
+  {
+    "name": "swing-09",
+    "family": "swing",
+    "strength": 9
+  },
+  {
+    "name": "swing-10",
+    "family": "swing",
+    "strength": 10
+  },
+  {
+    "name": "blur-01",
+    "family": "blur",
+    "strength": 1
+  },
+  {
+    "name": "blur-02",
+    "family": "blur",
+    "strength": 2
+  },
+  {
+    "name": "blur-03",
+    "family": "blur",
+    "strength": 3
+  },
+  {
+    "name": "blur-04",
+    "family": "blur",
+    "strength": 4
+  },
+  {
+    "name": "blur-05",
+    "family": "blur",
+    "strength": 5
+  },
+  {
+    "name": "blur-06",
+    "family": "blur",
+    "strength": 6
+  },
+  {
+    "name": "blur-07",
+    "family": "blur",
+    "strength": 7
+  },
+  {
+    "name": "blur-08",
+    "family": "blur",
+    "strength": 8
+  },
+  {
+    "name": "blur-09",
+    "family": "blur",
+    "strength": 9
+  },
+  {
+    "name": "blur-10",
+    "family": "blur",
+    "strength": 10
+  },
+  {
+    "name": "diagonal-01",
+    "family": "diagonal",
+    "strength": 1
+  },
+  {
+    "name": "diagonal-02",
+    "family": "diagonal",
+    "strength": 2
+  },
+  {
+    "name": "diagonal-03",
+    "family": "diagonal",
+    "strength": 3
+  },
+  {
+    "name": "diagonal-04",
+    "family": "diagonal",
+    "strength": 4
+  },
+  {
+    "name": "diagonal-05",
+    "family": "diagonal",
+    "strength": 5
+  },
+  {
+    "name": "diagonal-06",
+    "family": "diagonal",
+    "strength": 6
+  },
+  {
+    "name": "diagonal-07",
+    "family": "diagonal",
+    "strength": 7
+  },
+  {
+    "name": "diagonal-08",
+    "family": "diagonal",
+    "strength": 8
+  },
+  {
+    "name": "diagonal-09",
+    "family": "diagonal",
+    "strength": 9
+  },
+  {
+    "name": "diagonal-10",
+    "family": "diagonal",
+    "strength": 10
+  },
+  {
+    "name": "pop-01",
+    "family": "pop",
+    "strength": 1
+  },
+  {
+    "name": "pop-02",
+    "family": "pop",
+    "strength": 2
+  },
+  {
+    "name": "pop-03",
+    "family": "pop",
+    "strength": 3
+  },
+  {
+    "name": "pop-04",
+    "family": "pop",
+    "strength": 4
+  },
+  {
+    "name": "pop-05",
+    "family": "pop",
+    "strength": 5
+  },
+  {
+    "name": "pop-06",
+    "family": "pop",
+    "strength": 6
+  },
+  {
+    "name": "pop-07",
+    "family": "pop",
+    "strength": 7
+  },
+  {
+    "name": "pop-08",
+    "family": "pop",
+    "strength": 8
+  },
+  {
+    "name": "pop-09",
+    "family": "pop",
+    "strength": 9
+  },
+  {
+    "name": "pop-10",
+    "family": "pop",
+    "strength": 10
+  }
+]
